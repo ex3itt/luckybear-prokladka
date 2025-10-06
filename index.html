@@ -11,72 +11,132 @@
   --accent-1:#ff5ca1; --accent-2:#7afff2; --accent-3:#ffd166;
   --text:#e7eefc; --muted:rgba(231,238,252,0.65);
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
-body{margin:0;font-family:Inter,system-ui, -apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,var(--bg-1),var(--bg-2));color:var(--text);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;overflow:hidden}
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  background:linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  color:var(--text);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  padding:20px;
+  overflow:hidden;
+}
 
 /* animated background flux */
-.flux{position:fixed;inset:-30%;z-index:0;pointer-events:none;background:conic-gradient(from 120deg at 50% 50%, rgba(127,255,212,0.06), rgba(255,90,160,0.05), rgba(200,150,255,0.06), rgba(255,220,120,0.03));filter:blur(80px);transform:rotate(0deg);animation:flux-rotate 40s linear infinite}
+.flux{
+  position:fixed;inset:-30%;z-index:0;pointer-events:none;
+  background:conic-gradient(from 120deg at 50% 50%, rgba(127,255,212,0.06), rgba(255,90,160,0.05), rgba(200,150,255,0.06), rgba(255,220,120,0.03));
+  filter:blur(80px);animation:flux-rotate 40s linear infinite
+}
 @keyframes flux-rotate{to{transform:rotate(360deg)}}
 
 /* floating gradient bands */
-.band1, .band2{position:fixed;z-index:0;pointer-events:none;filter:blur(60px);opacity:0.12}
+.band1, .band2{
+  position:fixed;z-index:0;pointer-events:none;filter:blur(60px);opacity:0.12
+}
 .band1{width:800px;height:400px;left:-200px;top:10%;background:radial-gradient(circle at 20% 30%, rgba(122,255,242,0.12), transparent)}
 .band2{width:700px;height:360px;right:-160px;bottom:8%;background:radial-gradient(circle at 80% 70%, rgba(255,90,160,0.08), transparent)}
 
-/* main square container */
-.wrap{width:90vmin;height:90vmin;max-width:920px;max-height:920px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:26px;padding:24px;box-shadow:0 30px 90px rgba(0,0,0,0.65);position:relative;z-index:1;display:flex;flex-direction:column}
+/* main container */
+.wrap{
+  width:90vmin;height:auto;max-width:920px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:26px;padding:24px;box-shadow:0 30px 90px rgba(0,0,0,0.65);
+  position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;
+  animation:pop .6s cubic-bezier(.2,.9,.25,1)
+}
+@keyframes pop{from{transform:scale(0.98);opacity:0}to{transform:none;opacity:1}}
 
-/* casino logo large — transparent background, moved right */
-.casino-logo-large{position:absolute;right:28px;top:28px;width:180px;height:180px;border-radius:14px;overflow:hidden;z-index:6;display:flex;align-items:center;justify-content:center}
+/* casino logo */
+.casino-logo-large{
+  width:180px;height:180px;border-radius:14px;overflow:hidden;z-index:6;
+  display:flex;align-items:center;justify-content:center;margin-bottom:12px;
+}
 .casino-logo-large img{width:100%;height:100%;object-fit:contain}
 
-/* centered brand */
-.title-wrap{text-align:center;margin-top:6px}
+/* title */
+.title-wrap{text-align:center;margin-bottom:6px}
 .h1{font-family:Orbitron,Inter;font-size:22px;margin-bottom:6px}
 .desc{color:var(--muted);font-size:13px}
 
-/* video area */
-.player{flex:1;border-radius:16px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,0.03);margin:18px 0;position:relative;display:flex;align-items:center;justify-content:center}
-.video-inner{width:100%;height:100%;}
-video{width:100%;height:100%;object-fit:cover;display:block}
-
-/* instruction banner — SEPARATE block above the video */
-.instr-banner{width:fit-content;margin:0 auto 12px auto;padding:10px 18px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));backdrop-filter:blur(6px);box-shadow:0 12px 40px rgba(0,0,0,0.45);z-index:5;position:relative}
-.instr-badge{font-family:Orbitron;font-weight:900;letter-spacing:2px;font-size:18px;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2),var(--accent-3));-webkit-background-clip:text;background-clip:text;color:transparent;position:relative}
-/* animated liquid sheen */
-.instr-badge:before{content:"";position:absolute;inset:0;border-radius:999px;background:linear-gradient(120deg, rgba(255,255,255,0.06), rgba(255,255,255,0));mix-blend-mode:overlay;opacity:0.6;transform:translateX(-140%);animation:liquid 3.2s linear infinite}
+/* instruction */
+.instr-banner{
+  width:fit-content;margin:14px auto;padding:10px 18px;border-radius:999px;
+  background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  backdrop-filter:blur(6px);box-shadow:0 12px 40px rgba(0,0,0,0.45);
+  z-index:5;position:relative
+}
+.instr-badge{
+  font-family:Orbitron;font-weight:900;letter-spacing:2px;font-size:18px;
+  padding:6px 10px;border-radius:999px;
+  background:linear-gradient(90deg,var(--accent-1),var(--accent-2),var(--accent-3));
+  -webkit-background-clip:text;background-clip:text;color:transparent;position:relative
+}
+.instr-badge:before{
+  content:"";position:absolute;inset:0;border-radius:999px;
+  background:linear-gradient(120deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
+  mix-blend-mode:overlay;opacity:0.6;transform:translateX(-140%);
+  animation:liquid 3.2s linear infinite
+}
 @keyframes liquid{to{transform:translateX(140%)}}
 
-/* subtle neon frame on video */
-.player:after{content:"";position:absolute;inset:0;border-radius:16px;box-shadow:0 0 80px rgba(122,52,255,0.12) inset;pointer-events:none}
+/* video player */
+.player{
+  width:100%;max-width:640px;aspect-ratio:16/9;border-radius:16px;
+  overflow:hidden;background:#000;border:1px solid rgba(255,255,255,0.03);
+  margin:18px 0;position:relative;display:flex;align-items:center;justify-content:center
+}
+video{width:100%;height:100%;object-fit:cover;display:block}
+.player:after{
+  content:"";position:absolute;inset:0;border-radius:16px;
+  box-shadow:0 0 80px rgba(122,52,255,0.12) inset;pointer-events:none
+}
 
-/* buttons with animated gradients */
-.buttons{display:flex;flex-direction:column;gap:12px}
-.cta{display:block;padding:14px;border-radius:12px;text-align:center;font-weight:900;font-size:17px;color:#07101a;text-decoration:none;border:none;cursor:pointer;position:relative;overflow:hidden}
-.cta-primary{background:linear-gradient(90deg,var(--accent-2),var(--accent-1));box-shadow:0 18px 50px rgba(122,52,255,0.12)}
-.cta-ghost{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));color:var(--text);border:1px solid rgba(255,255,255,0.04)}
-/* gradient slide */
-.cta:before{content:"";position:absolute;inset:0;border-radius:12px;background:linear-gradient(60deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02), rgba(255,255,255,0.06));transform:translateX(-100%);opacity:0.6;mix-blend-mode:overlay;transition:transform 420ms}
+/* buttons */
+.buttons{display:flex;flex-direction:column;gap:12px;width:100%;max-width:420px}
+.cta{
+  display:block;padding:14px;border-radius:12px;text-align:center;font-weight:900;
+  font-size:17px;color:#07101a;text-decoration:none;border:none;cursor:pointer;
+  position:relative;overflow:hidden
+}
+.cta-primary{
+  background:linear-gradient(90deg,var(--accent-2),var(--accent-1));
+  box-shadow:0 18px 50px rgba(122,52,255,0.12)
+}
+.cta-ghost{
+  background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color:var(--text);border:1px solid rgba(255,255,255,0.04)
+}
+.cta:before{
+  content:"";position:absolute;inset:0;border-radius:12px;
+  background:linear-gradient(60deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02), rgba(255,255,255,0.06));
+  transform:translateX(-100%);opacity:0.6;mix-blend-mode:overlay;transition:transform 420ms
+}
 .cta:hover:before{transform:translateX(0%)}
-/* glow pulse */
 .cta:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 28px 60px rgba(122,52,255,0.18)}
-
-/* ripple on click */
-.cta{--ripple-size:0px}
-.cta .ripple{position:absolute;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;background:rgba(255,255,255,0.12);animation:ripple 600ms ease-out;}
+.cta .ripple{position:absolute;border-radius:50%;transform:translate(-50%,-50%);
+  pointer-events:none;background:rgba(255,255,255,0.12);animation:ripple 600ms ease-out;}
 @keyframes ripple{from{opacity:0.8;transform:translate(-50%,-50%) scale(0.2)}to{opacity:0;transform:translate(-50%,-50%) scale(2.5)}}
 
 /* bottom badges */
-.badges{display:flex;gap:8px;justify-content:center;margin-top:12px}
-.badge{font-size:12px;padding:6px 8px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:var(--muted)}
+.badges{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+.badge{
+  font-size:12px;padding:6px 8px;border-radius:10px;
+  background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);
+  color:var(--muted)
+}
 
-/* responsive tweaks */
-@media(max-width:820px){.wrap{width:95vmin;height:95vmin;padding:18px}.casino-logo-large{width:140px;height:140px}.h1{font-size:18px}.instr-badge{font-size:16px}}
-
-/* entrance subtle animation */
-.wrap{animation:pop .6s cubic-bezier(.2,.9,.25,1)}@keyframes pop{from{transform:scale(0.995);opacity:0}to{transform:none;opacity:1}}
-
+/* responsive */
+@media(max-width:820px){
+  .wrap{width:95%;padding:18px}
+  .casino-logo-large{width:140px;height:140px;margin-bottom:10px}
+  .h1{font-size:18px}
+  .instr-badge{font-size:16px}
+  .player{max-width:100%;aspect-ratio:16/9}
+}
 </style>
 </head>
 <body>
@@ -86,36 +146,30 @@ video{width:100%;height:100%;object-fit:cover;display:block}
 
   <div class="wrap" role="main">
 
-    <!-- big casino logo on the right (transparent background) -->
+    <!-- logo ABOVE title on mobile -->
     <div class="casino-logo-large" id="casinoLogoSlot">
       <img src="https://luckybear.bet/_next/static/media/home_logo.a028b260.png" alt="LUCKYBEAR">
     </div>
 
-    <!-- centered title -->
     <div class="title-wrap">
       <div class="h1">LUCKYBEAR — Войти и играть</div>
       <div class="desc">Нажмите «Играть на сайте» — всё просто: регистрация, бонус и игра!</div>
     </div>
 
-    <!-- instruction block separate from video -->
     <div class="instr-banner" role="note" aria-label="Инструкция">
       <div class="instr-badge">ИНСТРУКЦИЯ</div>
     </div>
 
-    <!-- video area -->
     <div class="player">
-      <div class="video-inner">
-        <video id="promoVideo" poster="video/preview.jpg" muted playsinline preload="metadata" controls>
-          <source src="video/tutor.mp4" type="video/mp4">
-        </video>
-      </div>
+      <video id="promoVideo" poster="video/preview.jpg" muted playsinline preload="metadata" controls>
+        <source src="video/preview.mp4" type="video/mp4">
+      </video>
     </div>
 
-    <!-- buttons -->
     <div class="buttons">
       <a id="mainCTA" class="cta cta-primary" href="https://luckybear.xyz/7PM4rC" target="_blank" rel="noopener noreferrer">Играть на сайте</a>
       <a id="tg1" class="cta cta-ghost" href="https://t.me/Lucky_Bear_Bars_Bot/app?startapp=bXN0PTB4NDllMDUxYjkmbT1BcnRlbWx1eCZjPXl0" target="_blank" rel="noopener noreferrer">Играть в Telegram</a>
-      <a id="tg2" class="cta cta-ghost" href="https://t.me/+oUFyhnMve1wzNGJi" target="_blank" rel="noopener noreferrer">TG канал - акции и розыгрыши</a>
+      <a id="tg2" class="cta cta-ghost" href="https://t.me/+oUFyhnMve1wzNGJi" target="_blank" rel="noopener noreferrer">TG канал — акции и розыгрыши</a>
     </div>
 
     <div class="badges" aria-hidden="true">
@@ -126,24 +180,41 @@ video{width:100%;height:100%;object-fit:cover;display:block}
   </div>
 
 <script>
-  // small ripple effect binding for CTA buttons
-  document.querySelectorAll('.cta').forEach(btn=>{
-    btn.addEventListener('click', function(e){
-      const rect = btn.getBoundingClientRect();
-      const ripple = document.createElement('span');
-      ripple.className='ripple';
-      const size = Math.max(rect.width, rect.height)*1.2; ripple.style.width=size+'px'; ripple.style.height=size+'px';
-      ripple.style.left=(e.clientX - rect.left)+'px'; ripple.style.top=(e.clientY - rect.top)+'px';
-      btn.appendChild(ripple);
-      setTimeout(()=>ripple.remove(),700);
-    });
+document.querySelectorAll('.cta').forEach(btn=>{
+  btn.addEventListener('click', e=>{
+    const rect=btn.getBoundingClientRect();
+    const ripple=document.createElement('span');
+    ripple.className='ripple';
+    const size=Math.max(rect.width,rect.height)*1.2;
+    ripple.style.width=size+'px';ripple.style.height=size+'px';
+    ripple.style.left=(e.clientX-rect.left)+'px';ripple.style.top=(e.clientY-rect.top)+'px';
+    btn.appendChild(ripple);
+    setTimeout(()=>ripple.remove(),700);
   });
+});
 
-  // allow replacing casino logo dynamically
-  window.setCasinoLogo = function(url, alt){const slot=document.getElementById('casinoLogoSlot');if(!slot) return;slot.innerHTML='';const img=document.createElement('img');img.src=url;img.alt=alt||https://luckybear.bet/_next/static/media/home_logo.a028b260.png;slot.appendChild(img);}
+window.setCasinoLogo=function(url,alt){
+  const slot=document.getElementById('casinoLogoSlot');
+  if(!slot)return;
+  slot.innerHTML='';
+  const img=document.createElement('img');
+  img.src=url;img.alt=alt||'Логотип казино';
+  slot.appendChild(img);
+};
 
-  // attach UTM if ref param exists (do not override provided links)
-  (function(){const sp=new URLSearchParams(window.location.search);if(!sp.has('ref')) return;const ref=sp.get('ref');['mainCTA','tg1','tg2'].forEach(id=>{try{const el=document.getElementById(id);const u=new URL(el.href);u.searchParams.set('ref',ref);el.href=u.toString();}catch(e){}})})();
+(function(){
+  const sp=new URLSearchParams(window.location.search);
+  if(!sp.has('ref'))return;
+  const ref=sp.get('ref');
+  ['mainCTA','tg1','tg2'].forEach(id=>{
+    try{
+      const el=document.getElementById(id);
+      const u=new URL(el.href);
+      u.searchParams.set('ref',ref);
+      el.href=u.toString();
+    }catch(e){}
+  });
+})();
 </script>
 </body>
 </html>
