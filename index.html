@@ -50,10 +50,12 @@ body{
 }
 @keyframes pop{from{transform:scale(0.98);opacity:0}to{transform:none;opacity:1}}
 
-/* casino logo */
+/* casino logo - lowered */
 .casino-logo-large{
   width:180px;height:180px;border-radius:14px;overflow:hidden;z-index:6;
-  display:flex;align-items:center;justify-content:center;margin-bottom:12px;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:40px;    /* <-- опустил логотип ниже (увеличен верхний отступ) */
+  margin-bottom:12px; /* оставляем небольшой отступ к заголовку */
 }
 .casino-logo-large img{width:100%;height:100%;object-fit:contain}
 
@@ -131,8 +133,13 @@ video{width:100%;height:100%;object-fit:cover;display:block}
 
 /* responsive */
 @media(max-width:820px){
-  .wrap{width:95%;padding:18px}
-  .casino-logo-large{width:140px;height:140px;margin-bottom:10px}
+  .wrap{
+    width:100vw; /* На телефонах фон растягивается на всю ширину */
+    border-radius:0; /* ровные края */
+    padding:20px 18px;
+    box-shadow:none;
+  }
+  .casino-logo-large{width:140px;height:140px;margin-bottom:10px;margin-top:22px;} /* меньше отступа сверху на мобильных */
   .h1{font-size:18px}
   .instr-badge{font-size:16px}
   .player{max-width:100%;aspect-ratio:16/9}
@@ -146,7 +153,7 @@ video{width:100%;height:100%;object-fit:cover;display:block}
 
   <div class="wrap" role="main">
 
-    <!-- logo ABOVE title on mobile -->
+    <!-- logo ABOVE title (опущен ниже) -->
     <div class="casino-logo-large" id="casinoLogoSlot">
       <img src="https://luckybear.bet/_next/static/media/home_logo.a028b260.png" alt="LUCKYBEAR">
     </div>
