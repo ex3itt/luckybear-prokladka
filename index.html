@@ -1,131 +1,285 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LUCKYBEAR — Быстрый вход</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-<style>
-:root{
---bg-1:#040408; --bg-2:#0a0c14;
---accent-1:#d74a99; --accent-2:#44c2e0; --accent-3:#caa200;
---text:#e7eefc; --muted:rgba(231,238,252,0.75);
---tg-blue:#0088cc;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-html,body{height:100%;width:100%;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:linear-gradient(180deg,var(--bg-1),var(--bg-2));color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Испытай удачу</title>
 
-/* Фоновые анимации */
-.flux,.band1,.band2{position:fixed;pointer-events:none;z-index:0;}
-.flux{inset:-30%;background:conic-gradient(from 120deg at 50% 50%, rgba(127,255,212,0.12), rgba(255,90,160,0.1), rgba(200,150,255,0.12), rgba(255,220,120,0.08));filter:blur(85px);animation:flux-rotate 35s linear infinite, glow-bg 6s ease-in-out infinite alternate;}
-.band1{width:800px;height:400px;left:-200px;top:10%;background:radial-gradient(circle at 20% 30%, rgba(68,194,224,0.18),transparent);filter:blur(65px);opacity:0.14;animation:band-glow 6s ease-in-out infinite alternate;}
-.band2{width:700px;height:360px;right:-160px;bottom:8%;background:radial-gradient(circle at 80% 70%, rgba(215,74,153,0.16),transparent);filter:blur(65px);opacity:0.14;animation:band-glow 6s ease-in-out infinite alternate;}
-@keyframes flux-rotate{to{transform:rotate(360deg);}}
-@keyframes glow-bg{0%{filter:blur(75px);}50%{filter:blur(100px);}100%{filter:blur(75px);}}
-@keyframes band-glow{0%{opacity:0.1;}50%{opacity:0.22;}100%{opacity:0.1;}}
+  <!-- Предзагрузка -->
+  <link rel="preload" href="fonts/BenzinBold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="video/promo.mp4" as="video" type="video/mp4">
+  <link rel="preload" href="images/preview.png" as="image">
 
-.wrap{width:min(92vmin,980px);max-width:980px;min-height:100vh;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:26px;padding:24px;margin:0 auto;box-shadow:0 30px 90px rgba(0,0,0,0.65);position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow:visible;}
-.casino-logo-large{width:clamp(100px,14vw,180px);margin:40px 0 12px;display:flex;align-items:center;justify-content:center;border-radius:14px;overflow:hidden;}
-.casino-logo-large img{width:100%;height:auto;object-fit:contain;display:block;}
-.title-wrap{text-align:center;margin-bottom:6px;padding:0 8px;}
-.h1{font-family:'Orbitron','Audiowide',sans-serif;font-weight:700;font-size:clamp(18px,2.6vw,28px);background:linear-gradient(135deg,var(--accent-1),var(--accent-2),var(--accent-3));background-size:200% 200%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 12px rgba(255,255,255,0.25);animation:title-glow 3s ease-in-out infinite alternate,title-gradient 6s ease-in-out infinite alternate;}
-@keyframes title-glow{0%{text-shadow:0 0 8px rgba(255,255,255,0.25);}50%{text-shadow:0 0 18px rgba(255,255,255,0.45);}100%{text-shadow:0 0 8px rgba(255,255,255,0.25);}}
-@keyframes title-gradient{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-.desc{color:var(--muted);font-size:clamp(12px,1.6vw,14px);max-width:760px;}
-.instr-banner{margin:14px auto;padding:10px 18px;border-radius:999px;background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));backdrop-filter:blur(6px);box-shadow:0 12px 40px rgba(0,0,0,0.45);z-index:5;position:relative;}
-.instr-badge{font-family:'Orbitron','Audiowide',Inter;font-weight:900;letter-spacing:2px;font-size:16px;padding:6px 10px;border-radius:999px;background:linear-gradient(120deg,var(--accent-3),var(--accent-2),var(--accent-1));background-size:200% 200%;-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block;animation:badge-gradient 4s ease-in-out infinite alternate,badge-glow 2.5s ease-in-out infinite alternate;}
-@keyframes badge-gradient{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-@keyframes badge-glow{0%{text-shadow:0 0 6px rgba(255,255,255,0.2);}50%{text-shadow:0 0 14px rgba(255,255,255,0.35);}100%{text-shadow:0 0 6px rgba(255,255,255,0.2);}}
-.player{width:100%;max-width:920px;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,0.03);margin:18px 0;position:relative;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,0.45);}
-.player video{width:100%;height:100%;object-fit:cover;display:block;background:#000;}
-.video-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;color:var(--muted);background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.6));font-size:14px;}
+  <style>
+    @font-face {
+      font-family: "BenzinBold";
+      src: url("fonts/BenzinBold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
 
-.vpn-warning {
-  margin: 10px 0 16px;
-  padding: 10px 16px;
-  border-radius: 12px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-  color: var(--accent-3);
-  font-size: 14px;
-  text-align: center;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-.buttons{display:flex;flex-direction:column;gap:12px;width:100%;max-width:420px;margin-top:8px;}
-.cta{display:flex;align-items:center;justify-content:center;gap:12px;padding:14px;border-radius:12px;font-weight:900;font-size:17px;text-decoration:none;color:#07101a;cursor:pointer;position:relative;overflow:hidden;transition:box-shadow 0.3s ease,transform 0.3s ease;}
-.cta-primary{background:linear-gradient(90deg,var(--accent-2),var(--accent-1));box-shadow:0 20px 60px rgba(255,92,161,0.4),0 0 30px rgba(122,255,242,0.35);color:#07101a;}
-.cta-primary:hover{box-shadow:0 25px 70px rgba(255,92,161,0.5),0 0 40px rgba(122,255,242,0.4);transform:translateY(-3px) scale(1.04);}
-.cta-tg{background:var(--tg-blue);color:#fff;box-shadow:0 18px 50px rgba(0,136,204,0.25);display:flex;align-items:center;justify-content:center;gap:10px;transition:box-shadow 0.3s ease,transform 0.3s ease;}
-.cta-tg:hover{background:#0099e6;transform:translateY(-4px) scale(1.03);box-shadow:0 25px 70px rgba(0,136,204,0.3),0 0 25px rgba(0,136,204,0.55);}
-.cta-tg img{width:20px;height:20px;display:inline-block;vertical-align:middle;filter:none;}
-.cta:before{content:"";position:absolute;inset:0;border-radius:12px;background:linear-gradient(60deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02), rgba(255,255,255,0.06));transform:translateX(-100%);opacity:0.6;mix-blend-mode:overlay;transition:transform 420ms;}
-.cta:hover:before{transform:translateX(0%);}
-.ripple{position:absolute;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;background:rgba(255,255,255,0.12);animation:ripple 600ms ease-out;}
-@keyframes ripple{from{opacity:0.8;transform:translate(-50%,-50%) scale(0.2);}to{opacity:0;transform:translate(-50%,-50%) scale(2.5);}}
-.badges{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap;}
-.badge{font-size:12px;padding:6px 8px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:var(--muted);}
-.foot{margin-top:18px;font-size:12px;color:var(--muted);opacity:0.95;}
-</style>
+    body {
+      background: radial-gradient(circle at 30% 20%, #23254d 0%, #0e1124 60%);
+      color: #fff;
+      font-family: "Inter", sans-serif;
+      text-align: center;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    /* Прелоадер */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 30% 20%, #23254d 0%, #0e1124 70%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 100;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .plane {
+      width: 100px;
+      height: 100px;
+      background: url("images/preview.png") no-repeat center / contain;
+      animation: fly 2.5s ease-in-out infinite;
+    }
+
+    @keyframes fly {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      50% { transform: translateY(-10px) rotate(2deg); opacity: 0.9; }
+      100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    }
+
+    .loading-text {
+      font-family: "BenzinBold", sans-serif;
+      font-size: 22px;
+      margin-top: 20px;
+      background: linear-gradient(135deg, #ffe176, #ff5858);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% {opacity: 1;}
+      50% {opacity: 0.5;}
+    }
+
+    .container {
+      width: 100%;
+      max-width: 480px;
+      display: none;
+    }
+
+    .container.visible {
+      display: block;
+    }
+
+    .video-section {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      display: block;
+      object-fit: cover;
+      background-color: #000;
+    }
+
+    .play-button {
+      margin-top: 25px;
+      background: linear-gradient(135deg, #ff7b00, #ff2d55);
+      color: white;
+      font-family: "BenzinBold", "Inter", sans-serif;
+      font-size: clamp(16px, 5vw, 20px);
+      padding: 16px 40px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(255, 90, 0, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: pulse 2s infinite;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .play-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 25px rgba(255, 125, 0, 0.6);
+    }
+
+    h2 {
+      font-family: "BenzinBold", "Inter", sans-serif;
+      font-size: clamp(22px, 5vw, 28px);
+      margin-top: 45px;
+      background: linear-gradient(135deg, #ffe176, #ff5858);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+    }
+
+    .tg-button {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 14px 30px;
+      font-family: "BenzinBold", "Inter", sans-serif;
+      background: linear-gradient(135deg, #00b7ff, #007fff);
+      color: #fff;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: clamp(16px, 4.5vw, 18px);
+      box-shadow: 0 6px 18px rgba(0, 183, 255, 0.4);
+      transition: all 0.3s ease;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .tg-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(0, 183, 255, 0.6);
+    }
+
+    /* Popup */
+    .popup {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+      z-index: 10;
+      padding: 20px;
+    }
+
+    .popup.active {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .popup-content {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 35px 20px;
+      text-align: center;
+      width: 100%;
+      max-width: 320px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(18px);
+      animation: scaleIn 0.4s ease forwards;
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .popup h3 {
+      font-family: "BenzinBold", "Inter", sans-serif;
+      font-size: clamp(18px, 5vw, 22px);
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #ffe176, #ff5858);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .popup p {
+      font-size: clamp(14px, 4vw, 16px);
+      color: #ddd;
+      margin-bottom: 25px;
+    }
+
+    .popup .tg-button {
+      font-size: clamp(14px, 4.5vw, 17px);
+      padding: 12px 26px;
+    }
+  </style>
 </head>
 <body>
-<div class="flux"></div>
-<div class="band1"></div>
-<div class="band2"></div>
-<main class="wrap">
-  <div class="casino-logo-large"><img src="https://luckybear.bet/_next/static/media/home_logo.a028b260.png" alt="LUCKYBEAR логотип"></div>
-  <div class="title-wrap">
-    <div class="h1">LUCKYBEAR — Войти и играть</div>
-    <div class="desc">Нажмите «Играть на сайте» — регистрация, бонус и игра!</div>
+  <!-- Прелоадер -->
+  <div id="preloader">
+    <div class="plane"></div>
+    <div class="loading-text">Загрузка Aviamasters...</div>
   </div>
-  <div class="instr-banner"><div class="instr-badge">ИНСТРУКЦИЯ</div></div>
-  <section class="player">
-    <video id="promoVideo" poster="video/preview.jpg" muted playsinline preload="metadata" controls>
-      <source src="video/tutor.mp4" type="video/mp4">
-      Ваш браузер не поддерживает видео.
-    </video>
-    <div id="videoFallback" class="video-fallback" style="display:none">Видео не найдено. Положите <code>video/tutor.mp4</code> в папку <code>/video</code>.</div>
-  </section>
 
-  <nav class="vpn-warning">
-    ⚠️ <b>Важно:</b> сайт может не работать без VPN — включите его для корректной работы!
-  </nav>
+  <div class="container" id="mainContent">
+    <div class="video-section">
+      <video id="promoVideo" preload="auto" poster="image/preview.png" playsinline>
+        <source src="video/promo.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+      </video>
+    </div>
 
-  <nav class="buttons">
-    <a id="tg2" class="cta cta-tg" href="https://t.me/+9a4f6jcd3k5lNzAy" target="_blank" rel="noopener noreferrer">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="TG">
-      TG канал — акции и розыгрыши
-    </a>
-    <a id="mainCTA" class="cta cta-primary" href="https://lbgame777.xyz/7jy7Ji" target="_blank" rel="noopener noreferrer">Играть на сайте</a>
-    <a id="mainCTA" class="cta cta-primary" href="https://lbgame777.xyz/0zHkWm" target="_blank" rel="noopener noreferrer">Скачать приложение</a>
-    <a id="tg1" class="cta cta-primary" href="https://t.me/Lucky_Bear_SpinPro_Bot/app?startapp=bXN0PTB4NDllMDUxYjkmbT1BcnRlbWx1eCZjPTI3MTE" target="_blank" rel="noopener noreferrer">Играть в Telegram</a>
-  </nav>
+    <button class="play-button" id="playBtn">ИСПЫТАТЬ УДАЧУ</button>
 
-  <div class="badges">
-    <div class="badge">Быстрая регистрация</div>
-    <div class="badge">Бонусы до 100%</div>
-    <div class="badge">Поддержка 24/7</div>
+    <h2>НАЧНИ ИГРАТЬ</h2>
+    <a href="https://t.me/avia773" target="_blank" class="tg-button">Перейти в Telegram</a>
   </div>
-  <div class="foot">© LuckyBear — Все права защищены</div>
-</main>
-<script>
-(function(){
-const buttons=document.querySelectorAll('.cta');
-buttons.forEach(btn=>{
-btn.addEventListener('click',function(e){
-const rect=btn.getBoundingClientRect();
-const ripple=document.createElement('span');
-ripple.className='ripple';
-const size=Math.max(rect.width,rect.height)*1.2;
-ripple.style.width=size+'px';
-ripple.style.height=size+'px';
-ripple.style.left=(e.clientX||rect.left+rect.width/2)-rect.left+'px';
-ripple.style.top=(e.clientY||rect.top+rect.height/2)-rect.top+'px';
-btn.appendChild(ripple);
-setTimeout(()=>ripple.remove(),600);
-});
-});
-})();
-</script>
+
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h3>💰 Вы могли выиграть 241 250 ₽!</h3>
+      <p>Попробуй прямо сейчас — удача может быть на твоей стороне.</p>
+      <a href="https://t.me/avia773" target="_blank" class="tg-button">Испытать удачу</a>
+    </div>
+  </div>
+
+  <script>
+    const video = document.getElementById('promoVideo');
+    const playBtn = document.getElementById('playBtn');
+    const popup = document.getElementById('popup');
+    const preloader = document.getElementById('preloader');
+    const mainContent = document.getElementById('mainContent');
+
+    // Ждём полной загрузки контента
+    window.addEventListener('load', () => {
+      // Даем браузеру чуть прогрузить видео и шрифт
+      setTimeout(() => {
+        preloader.classList.add('hidden');
+        mainContent.classList.add('visible');
+        // Принудительно загружаем превью, если видео не сразу доступно
+        video.load();
+      }, 500);
+    });
+
+    // Кнопка "Испытать удачу"
+    playBtn.addEventListener('click', () => {
+      if (navigator.vibrate) navigator.vibrate(100);
+      playBtn.style.display = 'none';
+      video.muted = false;
+      video.play().catch(() => {
+        // если браузер блокирует автоплей — разрешим со звуком вручную
+        video.muted = true;
+        video.play();
+      });
+      setTimeout(() => popup.classList.add('active'), 13000);
+    });
+  </script>
 </body>
 </html>
-
