@@ -33,13 +33,10 @@ overflow-x:hidden;
 
 /* ❄️ SNOW */
 .snow,.snow2,.snow3{
-position:fixed;
-top:0;left:0;
+position:fixed;top:0;left:0;
 width:100vw;height:100vh;
-pointer-events:none;
-z-index:0;
-background-repeat:repeat;
-background-size:240px 240px;
+pointer-events:none;z-index:0;
+background-repeat:repeat;background-size:240px 240px;
 }
 .snow{animation:snowMove 32s linear infinite;opacity:.5;
 background-image:
@@ -70,41 +67,34 @@ animation:fire 6s ease-in-out infinite alternate;
 
 /* 🧱 WRAP */
 .wrap{
-position:relative;
-z-index:1;
+position:relative;z-index:1;
 width:min(94vw,1100px);
 margin:0 auto;
 padding:32px 24px 70px;
 border-radius:32px;
 background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
 box-shadow:0 40px 160px rgba(0,0,0,.9),0 0 120px rgba(155,231,255,.15);
-text-align:center;
-overflow:hidden;
+text-align:center;overflow:hidden;
 }
 
 /* ❄️ SNOW DRIFTS */
 .wrap::after{
 content:"";
-position:absolute;
-left:-10%;
-bottom:-40px;
-width:120%;
-height:120px;
+position:absolute;left:-10%;bottom:-40px;
+width:120%;height:120px;
 background:
 radial-gradient(50% 80% at 10% 100%, #fff 60%, transparent 61%),
 radial-gradient(50% 80% at 30% 100%, #f5fbff 60%, transparent 61%),
 radial-gradient(50% 80% at 50% 100%, #ffffff 60%, transparent 61%),
 radial-gradient(50% 80% at 70% 100%, #f0f8ff 60%, transparent 61%),
 radial-gradient(50% 80% at 90% 100%, #ffffff 60%, transparent 61%);
-opacity:.85;
-pointer-events:none;
+opacity:.85;pointer-events:none;
 }
 
 /* 🎄 GARLAND */
 .wrap::before{
 content:"";
-position:absolute;
-top:-18px;left:0;right:0;height:36px;
+position:absolute;top:-18px;left:0;right:0;height:36px;
 background:
 radial-gradient(circle at 5% 50%, #ff5252 0 6px, transparent 7px),
 radial-gradient(circle at 15% 50%, #ffd740 0 6px, transparent 7px),
@@ -145,24 +135,28 @@ box-shadow:0 0 40px rgba(255,215,100,.55);
 position:relative;
 cursor:pointer;
 }
-.promo-video video{width:100%;display:block}
+.promo-video video{
+width:100%;
+display:block;
+background:#000;
+}
+
+/* overlay */
 .video-overlay{
 position:absolute;inset:0;
 background:rgba(0,0,0,.55);
 display:flex;flex-direction:column;
 align-items:center;justify-content:center;
 font-weight:800;
+pointer-events:none;
 }
-.video-overlay span{margin-top:10px}
 .video-overlay.hidden{display:none}
 
 /* 🔘 BUTTONS */
 .buttons{
 margin:22px auto;
-display:flex;
-flex-direction:column;
-gap:14px;
-max-width:420px;
+display:flex;flex-direction:column;
+gap:14px;max-width:420px;
 }
 .btn{
 padding:16px;
@@ -182,6 +176,13 @@ animation:btnGlow 3s infinite;
 }
 .btn.tg{background:#4fc3f7}
 .btn.main{background:linear-gradient(90deg,#43a047,var(--gold),#e53935)}
+
+/* ⚠️ VPN NOTICE */
+.vpn-note{
+margin-top:18px;
+font-size:13px;
+opacity:.75;
+}
 
 /* 🎮 GAMES */
 .games{
@@ -206,28 +207,43 @@ font-size:12px;
 padding:4px 10px;border-radius:999px;
 }
 .game img{width:100%;border-radius:16px}
+
 .footer{margin-top:32px;font-size:12px;opacity:.75}
 </style>
 </head>
 
 <body>
-<div class="snow"></div><div class="snow2"></div><div class="snow3"></div><div class="fireworks"></div>
+
+<div class="snow"></div>
+<div class="snow2"></div>
+<div class="snow3"></div>
+<div class="fireworks"></div>
 
 <main class="wrap">
-<div class="logo"><img src="https://luckybear.bet/_next/static/media/home_logo.a028b260.png"></div>
+
+<div class="logo">
+<img src="https://luckybear.bet/_next/static/media/home_logo.a028b260.png">
+</div>
+
 <div class="title">LUCKYBEAR — Войти и играть</div>
 
-<div class="promo-video" onclick="playVideo()">
-<video id="video"><source src="video/tutor.mp4"></video>
+<div class="promo-video" onclick="toggleVideo()">
+<video id="video" controls>
+<source src="video/tutor.mp4" type="video/mp4">
+</video>
 <div class="video-overlay" id="overlay">
 ▶ <span>СМОТРЕТЬ ИНСТРУКЦИЮ</span>
 </div>
 </div>
 
 <div class="buttons">
-<a class="btn tg" href="https://t.me/avia772">TG канал </a>
+<a class="btn tg" href="https://t.me.avia772">TG канал — акции</a>
 <a class="btn main" href="https://lbgame777.xyz/1quxh2">Играть на сайте</a>
 <a class="btn main" href="https://t.me/P_EliteEcho_Bot/app?startapp=bXN0PTB4MWZmMWQ2YzY2Jm09d29ya2VydWImYz0zMDEybmV3">Играть в Telegram</a>
+</div>
+
+<div class="vpn-note">
+⚠️ Сайт может быть недоступен без VPN в некоторых регионах
 </div>
 
 <section class="games">
@@ -238,19 +254,27 @@ padding:4px 10px;border-radius:999px;
 </section>
 
 <div class="footer">© LuckyBear — Все права защищены</div>
+
 </main>
 
 <script>
-function playVideo(){
+function toggleVideo(){
 const v=document.getElementById('video');
 const o=document.getElementById('overlay');
-o.style.display='none';
+
+if(v.paused){
 v.play();
+o.classList.add('hidden');
+}else{
+v.pause();
+o.classList.remove('hidden');
+}
 }
 </script>
 
 </body>
 </html>
+
 
 
 <!-- Yandex.Metrika counter -->
