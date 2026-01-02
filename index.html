@@ -1,285 +1,270 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Испытай удачу</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUCKYBEAR — Войти и играть</title>
 
-  <!-- Предзагрузка -->
-  <link rel="preload" href="fonts/BenzinBold.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="video/promo.mp4" as="video" type="video/mp4">
-  <link rel="preload" href="images/preview.png" as="image">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Orbitron:wght@500;800&display=swap" rel="stylesheet">
 
-  <style>
-    @font-face {
-      font-family: "BenzinBold";
-      src: url("fonts/BenzinBold.woff2") format("woff2");
-      font-weight: 700;
-      font-style: normal;
-      font-display: swap;
-    }
+<style>
+:root{
+--bg1:#02030f;
+--bg2:#05081c;
+--bg3:#0b1233;
+--gold:#ffd54f;
+--ice:#9be7ff;
+--text:#e7eefc;
+--tg:#0088cc;
+}
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%}
 
-    body {
-      background: radial-gradient(circle at 30% 20%, #23254d 0%, #0e1124 60%);
-      color: #fff;
-      font-family: "Inter", sans-serif;
-      text-align: center;
-      overflow-x: hidden;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      padding: 20px;
-    }
+body{
+font-family:Inter,system-ui;
+background:
+radial-gradient(1200px 600px at 10% -10%, rgba(155,231,255,.08), transparent),
+radial-gradient(1000px 500px at 90% 0%, rgba(255,215,100,.08), transparent),
+linear-gradient(180deg,var(--bg1),var(--bg2),var(--bg3));
+color:var(--text);
+overflow-x:hidden;
+}
 
-    /* Прелоадер */
-    #preloader {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at 30% 20%, #23254d 0%, #0e1124 70%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 100;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-    }
+/* ❄️ SNOW */
+.snow,.snow2,.snow3{
+position:fixed;
+top:0;left:0;
+width:100vw;height:100vh;
+pointer-events:none;
+z-index:0;
+background-repeat:repeat;
+background-size:240px 240px;
+}
+.snow{animation:snowMove 32s linear infinite;opacity:.5;
+background-image:
+radial-gradient(2px 2px at 10% 10%,#fff,transparent),
+radial-gradient(2px 2px at 50% 40%,#fff,transparent),
+radial-gradient(2px 2px at 80% 70%,#fff,transparent);}
+.snow2{animation:snowMove 22s linear infinite;opacity:.7;
+background-image:
+radial-gradient(1.5px 1.5px at 20% 20%,#fff,transparent),
+radial-gradient(1.5px 1.5px at 60% 60%,#fff,transparent);}
+.snow3{animation:snowMove 14s linear infinite;opacity:.9;
+background-image:
+radial-gradient(1px 1px at 30% 30%,#fff,transparent),
+radial-gradient(1px 1px at 70% 80%,#fff,transparent);}
+@keyframes snowMove{from{background-position:0 0}to{background-position:0 100vh}}
 
-    #preloader.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
+/* 🎆 FIREWORKS */
+.fireworks{
+position:fixed;top:0;left:0;width:100vw;height:100vh;
+pointer-events:none;z-index:0;
+background:
+radial-gradient(circle at 20% 30%, rgba(255,215,100,.35), transparent 45%),
+radial-gradient(circle at 80% 20%, rgba(255,80,80,.35), transparent 45%),
+radial-gradient(circle at 60% 70%, rgba(100,200,255,.35), transparent 45%);
+animation:fire 6s ease-in-out infinite alternate;
+}
+@keyframes fire{from{opacity:.25}to{opacity:.85}}
 
-    .plane {
-      width: 100px;
-      height: 100px;
-      background: url("images/preview.png") no-repeat center / contain;
-      animation: fly 2.5s ease-in-out infinite;
-    }
+/* 🧱 WRAP */
+.wrap{
+position:relative;
+z-index:1;
+width:min(94vw,1100px);
+margin:0 auto;
+padding:32px 24px 70px;
+border-radius:32px;
+background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+box-shadow:0 40px 160px rgba(0,0,0,.9),0 0 120px rgba(155,231,255,.15);
+text-align:center;
+overflow:hidden;
+}
 
-    @keyframes fly {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      50% { transform: translateY(-10px) rotate(2deg); opacity: 0.9; }
-      100% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    }
+/* ❄️ SNOW DRIFTS */
+.wrap::after{
+content:"";
+position:absolute;
+left:-10%;
+bottom:-40px;
+width:120%;
+height:120px;
+background:
+radial-gradient(50% 80% at 10% 100%, #fff 60%, transparent 61%),
+radial-gradient(50% 80% at 30% 100%, #f5fbff 60%, transparent 61%),
+radial-gradient(50% 80% at 50% 100%, #ffffff 60%, transparent 61%),
+radial-gradient(50% 80% at 70% 100%, #f0f8ff 60%, transparent 61%),
+radial-gradient(50% 80% at 90% 100%, #ffffff 60%, transparent 61%);
+opacity:.85;
+pointer-events:none;
+}
 
-    .loading-text {
-      font-family: "BenzinBold", sans-serif;
-      font-size: 22px;
-      margin-top: 20px;
-      background: linear-gradient(135deg, #ffe176, #ff5858);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: pulse 1.5s infinite;
-    }
+/* 🎄 GARLAND */
+.wrap::before{
+content:"";
+position:absolute;
+top:-18px;left:0;right:0;height:36px;
+background:
+radial-gradient(circle at 5% 50%, #ff5252 0 6px, transparent 7px),
+radial-gradient(circle at 15% 50%, #ffd740 0 6px, transparent 7px),
+radial-gradient(circle at 25% 50%, #69f0ae 0 6px, transparent 7px),
+radial-gradient(circle at 35% 50%, #40c4ff 0 6px, transparent 7px),
+radial-gradient(circle at 45% 50%, #ff5252 0 6px, transparent 7px),
+radial-gradient(circle at 55% 50%, #ffd740 0 6px, transparent 7px),
+radial-gradient(circle at 65% 50%, #69f0ae 0 6px, transparent 7px),
+radial-gradient(circle at 75% 50%, #40c4ff 0 6px, transparent 7px),
+radial-gradient(circle at 85% 50%, #ff5252 0 6px, transparent 7px),
+radial-gradient(circle at 95% 50%, #ffd740 0 6px, transparent 7px);
+filter:drop-shadow(0 0 10px #fff);
+animation:garland 3.8s ease-in-out infinite;
+}
+@keyframes garland{0%{opacity:.6}50%{opacity:1}100%{opacity:.6}}
 
-    @keyframes pulse {
-      0%,100% {opacity: 1;}
-      50% {opacity: 0.5;}
-    }
+/* LOGO */
+.logo img{width:160px;margin:40px auto 12px;filter:drop-shadow(0 0 26px var(--gold))}
 
-    .container {
-      width: 100%;
-      max-width: 480px;
-      display: none;
-    }
+/* TITLE */
+.title{
+font-family:Orbitron,sans-serif;
+font-size:clamp(20px,3vw,30px);
+font-weight:800;
+background:linear-gradient(120deg,#ff5252,var(--gold),#43a047);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
 
-    .container.visible {
-      display: block;
-    }
+/* 🎥 VIDEO */
+.promo-video{
+margin:22px auto 16px;
+max-width:520px;
+border-radius:22px;
+overflow:hidden;
+border:3px solid var(--gold);
+box-shadow:0 0 40px rgba(255,215,100,.55);
+position:relative;
+cursor:pointer;
+}
+.promo-video video{width:100%;display:block}
+.video-overlay{
+position:absolute;inset:0;
+background:rgba(0,0,0,.55);
+display:flex;flex-direction:column;
+align-items:center;justify-content:center;
+font-weight:800;
+}
+.video-overlay span{margin-top:10px}
+.video-overlay.hidden{display:none}
 
-    .video-section {
-      position: relative;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(15px);
-    }
+/* 🔘 BUTTONS */
+.buttons{
+margin:22px auto;
+display:flex;
+flex-direction:column;
+gap:14px;
+max-width:420px;
+}
+.btn{
+padding:16px;
+border-radius:18px;
+font-weight:800;
+text-decoration:none;
+color:#000;
+transition:.3s;
+animation:btnGlow 3s infinite;
+}
+.btn:hover{transform:translateY(-4px) scale(1.05)}
+.btn:active{transform:scale(.97)}
+@keyframes btnGlow{
+0%{box-shadow:0 0 25px rgba(255,255,255,.3)}
+50%{box-shadow:0 0 45px rgba(255,255,255,.7)}
+100%{box-shadow:0 0 25px rgba(255,255,255,.3)}
+}
+.btn.tg{background:#4fc3f7}
+.btn.main{background:linear-gradient(90deg,#43a047,var(--gold),#e53935)}
 
-    video {
-      width: 100%;
-      height: auto;
-      border-radius: 20px;
-      display: block;
-      object-fit: cover;
-      background-color: #000;
-    }
-
-    .play-button {
-      margin-top: 25px;
-      background: linear-gradient(135deg, #ff7b00, #ff2d55);
-      color: white;
-      font-family: "BenzinBold", "Inter", sans-serif;
-      font-size: clamp(16px, 5vw, 20px);
-      padding: 16px 40px;
-      border-radius: 50px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(255, 90, 0, 0.5);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: pulse 2s infinite;
-      width: 100%;
-      max-width: 320px;
-    }
-
-    .play-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 12px 25px rgba(255, 125, 0, 0.6);
-    }
-
-    h2 {
-      font-family: "BenzinBold", "Inter", sans-serif;
-      font-size: clamp(22px, 5vw, 28px);
-      margin-top: 45px;
-      background: linear-gradient(135deg, #ffe176, #ff5858);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 1px;
-    }
-
-    .tg-button {
-      margin-top: 20px;
-      display: inline-block;
-      padding: 14px 30px;
-      font-family: "BenzinBold", "Inter", sans-serif;
-      background: linear-gradient(135deg, #00b7ff, #007fff);
-      color: #fff;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: clamp(16px, 4.5vw, 18px);
-      box-shadow: 0 6px 18px rgba(0, 183, 255, 0.4);
-      transition: all 0.3s ease;
-      width: 100%;
-      max-width: 300px;
-    }
-
-    .tg-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(0, 183, 255, 0.6);
-    }
-
-    /* Popup */
-    .popup {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.85);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      visibility: hidden;
-      opacity: 0;
-      transition: opacity 0.4s ease, visibility 0.4s ease;
-      z-index: 10;
-      padding: 20px;
-    }
-
-    .popup.active {
-      visibility: visible;
-      opacity: 1;
-    }
-
-    .popup-content {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
-      padding: 35px 20px;
-      text-align: center;
-      width: 100%;
-      max-width: 320px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(18px);
-      animation: scaleIn 0.4s ease forwards;
-    }
-
-    @keyframes scaleIn {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    .popup h3 {
-      font-family: "BenzinBold", "Inter", sans-serif;
-      font-size: clamp(18px, 5vw, 22px);
-      margin-bottom: 10px;
-      background: linear-gradient(135deg, #ffe176, #ff5858);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .popup p {
-      font-size: clamp(14px, 4vw, 16px);
-      color: #ddd;
-      margin-bottom: 25px;
-    }
-
-    .popup .tg-button {
-      font-size: clamp(14px, 4.5vw, 17px);
-      padding: 12px 26px;
-    }
-  </style>
+/* 🎮 GAMES */
+.games{
+margin-top:36px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:26px;
+}
+.game{
+background:#0a1240;
+border-radius:26px;
+padding:26px 20px;
+border:2px solid var(--gold);
+box-shadow:0 0 40px rgba(255,215,100,.55);
+position:relative;
+}
+.game .top{
+position:absolute;top:12px;right:12px;
+background:var(--gold);
+color:#000;font-weight:800;
+font-size:12px;
+padding:4px 10px;border-radius:999px;
+}
+.game img{width:100%;border-radius:16px}
+.footer{margin-top:32px;font-size:12px;opacity:.75}
+</style>
 </head>
+
 <body>
-  <!-- Прелоадер -->
-  <div id="preloader">
-    <div class="plane"></div>
-    <div class="loading-text">Загрузка Aviamasters...</div>
-  </div>
+<div class="snow"></div><div class="snow2"></div><div class="snow3"></div><div class="fireworks"></div>
 
-  <div class="container" id="mainContent">
-    <div class="video-section">
-      <video id="promoVideo" preload="auto" poster="image/preview.png" playsinline>
-        <source src="video/promo.mp4" type="video/mp4">
-        Ваш браузер не поддерживает видео.
-      </video>
-    </div>
+<main class="wrap">
+<div class="logo"><img src="https://luckybear.bet/_next/static/media/home_logo.a028b260.png"></div>
+<div class="title">LUCKYBEAR — Войти и играть</div>
 
-    <button class="play-button" id="playBtn">ИСПЫТАТЬ УДАЧУ</button>
+<div class="promo-video" onclick="playVideo()">
+<video id="video"><source src="video/tutor.mp4"></video>
+<div class="video-overlay" id="overlay">
+▶ <span>СМОТРЕТЬ ИНСТРУКЦИЮ</span>
+</div>
+</div>
 
-    <h2>НАЧНИ ИГРАТЬ</h2>
-    <a href="https://t.me/avia772" target="_blank" class="tg-button">Перейти в Telegram</a>
-  </div>
+<div class="buttons">
+<a class="btn tg" href="https://t.me/avia772">TG канал </a>
+<a class="btn main" href="https://lbgame777.xyz/1quxh2">Играть на сайте</a>
+<a class="btn main" href="https://t.me/P_EliteEcho_Bot/app?startapp=bXN0PTB4MWZmMWQ2YzY2Jm09d29ya2VydWImYz0zMDEybmV3">Играть в Telegram</a>
+</div>
 
-  <div class="popup" id="popup">
-    <div class="popup-content">
-      <h3>💰 Вы могли выиграть 241 250 ₽!</h3>
-      <p>Попробуй прямо сейчас — удача может быть на твоей стороне.</p>
-      <a href="https://t.me/avia772" target="_blank" class="tg-button">Испытать удачу</a>
-    </div>
-  </div>
+<section class="games">
+<div class="game"><div class="top">TOP</div><img src="icons/1.png"><span>AVIAMASTERS</span></div>
+<div class="game"><div class="top">TOP</div><img src="icons/2.png"><span>MINE SLOT</span></div>
+<div class="game"><div class="top">TOP</div><img src="icons/3.png"><span>TOWER RUSH</span></div>
+<div class="game"><div class="top">TOP</div><img src="icons/4.png"><span>PENGU SPORT</span></div>
+</section>
 
-  <script>
-    const video = document.getElementById('promoVideo');
-    const playBtn = document.getElementById('playBtn');
-    const popup = document.getElementById('popup');
-    const preloader = document.getElementById('preloader');
-    const mainContent = document.getElementById('mainContent');
+<div class="footer">© LuckyBear — Все права защищены</div>
+</main>
 
-    // Ждём полной загрузки контента
-    window.addEventListener('load', () => {
-      // Даем браузеру чуть прогрузить видео и шрифт
-      setTimeout(() => {
-        preloader.classList.add('hidden');
-        mainContent.classList.add('visible');
-        // Принудительно загружаем превью, если видео не сразу доступно
-        video.load();
-      }, 500);
-    });
+<script>
+function playVideo(){
+const v=document.getElementById('video');
+const o=document.getElementById('overlay');
+o.style.display='none';
+v.play();
+}
+</script>
 
-    // Кнопка "Испытать удачу"
-    playBtn.addEventListener('click', () => {
-      if (navigator.vibrate) navigator.vibrate(100);
-      playBtn.style.display = 'none';
-      video.muted = false;
-      video.play().catch(() => {
-        // если браузер блокирует автоплей — разрешим со звуком вручную
-        video.muted = true;
-        video.play();
-      });
-      setTimeout(() => popup.classList.add('active'), 13000);
-    });
-  </script>
 </body>
 </html>
+
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106061204', 'ym');
+
+    ym(106061204, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/106061204" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+
